@@ -1,15 +1,25 @@
 const express = require('express');
 const path = require('path');
-const logEvents = require('./middleWares/logEvents')
+const cors = require('cors');
+const {logger, logEvents} = require('./middleWares/logEvents')
 const PORT = process.PORT || 3000;
-
 const app = express();
+const whitelist = ['https://www.google.com']
+const corsOptions = {
+  origin:(origin, callback) =>{
+    if ( whitelist.indexOf(origin !== -1)){
+      callback(null,true)
+    } else {
+      callback(new Error('Not allowed by cors'))
+    }
+  },
+  optionsSuccessStatus:200
+}
+
+app.use(logger);
+app.use(cors(corsOptions));
 app.use(express.static(path.join(__dirname, 'public')))
-app.use((req, res, next) => {
-  logEvents(`${req.methode}\t${req.headers.origin}\t${req.url}\n`, 'reqlogs.txt')
-  console.log(`${req.method} ${req.path}`);
-  next();
-});
+app.use(logger);
 
 // app.set('views', path.join(__dirname, 'views'));
 app.use(express.json());
