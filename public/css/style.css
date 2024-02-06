@@ -1,0 +1,12 @@
+h1{
+    text-align: center;
+    font-size:15mm;
+    color: azure;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+body{
+    background-color: black;
+}
