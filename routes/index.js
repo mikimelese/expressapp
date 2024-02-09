@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
 // Route for product details
 router.get('/per/:id', testController.getPerson);
 
-router.get("/*", (req,res) => {
+router.all("*", (req,res) => {
   res.status(404).sendFile(path.join(__dirname,"..","views","404.html"));
 })
 
