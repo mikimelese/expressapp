@@ -1,12 +1,12 @@
 [{
-    "name" : "miki",
+    "Fname" : "miki",
     "id":1
 },
 {
-    "name": "tole",
+    "Fname": "tole",
     "id": 2
 },
 {
-    "name": "teka",
+    "Fname": "teka",
     "id": 2
 }]
