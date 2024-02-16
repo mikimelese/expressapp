@@ -17,6 +17,7 @@ app.use(logger);
 // app.set('views', path.join(__dirname, 'views'));
 app.use(express.json());
 app.use('/', require('./routes/index'));
+app.use('/register', require('./routes/register'));
 app.use('/per', require('./routes/api/persons'));
 
 app.use(errorHandler);
