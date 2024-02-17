@@ -1,6 +1,6 @@
 const UsersDB = {
-    users: require('../models/Users.json'),
-    setUsers: function(data) { this.Users = data}
+    users: require('../models/users.json'),
+    setUsers: function(data) { this.users = data}
 }
 const fsPromises = require('fs').promises;
 const path = require('path');
@@ -10,16 +10,16 @@ const handleNewUser = async (req, res) => {
     const { user, pwd } = req.body;
     if (!user || !pwd) return res.status(400).json({'message': 'Username and password are required'});
     //check for duplicate username in the db
-    const duplicaate = UsersDB.users.find(person => person.username === user);
+    const duplicate = UsersDB.users.find(person => person.username === user);
     if (duplicate) return res.sendStatus(409);
     try {
         //encrypt the password
         const hashedPwd = await bcrypt.hash(pwd, 10);
         //store the new user
-        const newUser = {"username": user, "password": hasedpwd};
+        const newUser = {"username": user, "password": hashedPwd};
         UsersDB.setUsers([...UsersDB.users , newUser]);
         await fsPromises.writeFile(
-            path.join(__dirname, '..', 'model', 'users.json'),
+            path.join(__dirname, '..', 'models', 'users.json'),
             JSON.stringify(UsersDB.users)
         );
         console.log(UsersDB.users);
@@ -30,4 +30,4 @@ const handleNewUser = async (req, res) => {
 
 }
 
-module.exports = handleNewUser;
+module.exports =  {handleNewUser} ;

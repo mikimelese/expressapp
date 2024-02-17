@@ -23,7 +23,7 @@ app.use('/per', require('./routes/api/persons'));
 app.use(errorHandler);
 
 app.all("*", (req,res) => {
-  res.status(404).sendFile(path.join(__dirname,"..","views","404.html"));
+  res.status(404).sendFile(path.join(__dirname,"views","404.html"));
 })
 
 app.listen(3000, () => {
