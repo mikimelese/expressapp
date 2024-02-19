@@ -4,6 +4,7 @@ const cors = require('cors');
 const corsOptions = require('./config/CorsOptions')
 const {logger} = require('./middleWares/logEvents');
 const errorHandler = require('./middleWares/errorHandler');
+const verifyJWT = require('./middleWares/verifyJWT');
 
 const PORT = process.PORT || 3000;
 const app = express();
@@ -19,6 +20,7 @@ app.use(express.json());
 app.use('/', require('./routes/index'));
 app.use('/register', require('./routes/register'));
 app.use('/login', require('./routes/auth'));
+app.use(verifyJWT());
 app.use('/per', require('./routes/api/persons'));
 
 app.use(errorHandler);
@@ -29,4 +31,4 @@ app.all("*", (req,res) => {
 
 app.listen(3000, () => {
     console.log('Server listening on port 3000');
-  }); 
+  });
