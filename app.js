@@ -18,6 +18,7 @@ app.use(logger);
 app.use(express.json());
 app.use('/', require('./routes/index'));
 app.use('/register', require('./routes/register'));
+app.use('/login', require('./routes/auth'));
 app.use('/per', require('./routes/api/persons'));
 
 app.use(errorHandler);
