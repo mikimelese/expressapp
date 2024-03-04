@@ -11,6 +11,7 @@ const fsPromises = require('fs').promises;
 const path = require('path');
 
 const handleLogin = async (req, res) => {
+    // console.log("loggggggggg");
     const { user, pwd } = req.body;
     if (!user || !pwd) return res.status(400).json({ 'message': 'Username and password are required.'});
     const foundUser = usersDB.users.find(person => person.username === user);
@@ -42,4 +43,4 @@ const handleLogin = async (req, res) => {
     }
 }
 
-module.exports = {handleLogin}; 
+module.exports = {handleLogin};

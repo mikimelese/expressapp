@@ -5,7 +5,7 @@ const corsOptions = require('./config/CorsOptions')
 const {logger} = require('./middleWares/logEvents');
 const errorHandler = require('./middleWares/errorHandler');
 const verifyJWT = require('./middleWares/verifyJWT');
-
+const cookieParser = require('cookie-parser');
 const PORT = process.PORT || 3000;
 const app = express();
 
@@ -17,10 +17,12 @@ app.use(logger);
 
 // app.set('views', path.join(__dirname, 'views'));
 app.use(express.json());
+app.use(cookieParser());
 app.use('/', require('./routes/index'));
 app.use('/register', require('./routes/register'));
 app.use('/login', require('./routes/auth'));
-app.use(verifyJWT());
+app.use('/refresh', require('./routes/refresh'));
+app.use(verifyJWT);
 app.use('/per', require('./routes/api/persons'));
 
 app.use(errorHandler);
