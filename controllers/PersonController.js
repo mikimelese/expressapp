@@ -26,8 +26,8 @@ const createPerson = (req, res) => {
 const deletePerson = (req, res) => {
   const person = data.persons.find(per => per.id === parseInt(req.body.id));
   if(!person) 
-  res.status(400).json({'message': `person id ${req.body.id} is not found`});
-
+  return res.status(400).json({'message': `person id ${req.body.id} is not found`});
+  
   const filtered = data.persons.filter(per => per.id !== parseInt(req.body.id));
   data.setPerson([...filtered]);
   res.json(data.persons);
