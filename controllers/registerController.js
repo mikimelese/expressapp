@@ -7,8 +7,8 @@ const path = require('path');
 const bcrypt = require('bcrypt');
 
 const handleNewUser = async (req, res) => {
-    const { user, pwd } = req.body;
-    if (!user || !pwd) return res.status(400).json({'message': 'Username and password are required'});
+    const { user, pwd, role } = req.body;
+    if (!user || !pwd ) return res.status(400).json({'message': 'Username, password and role are required'});
     //check for duplicate username in the db
     const duplicate = UsersDB.users.find(person => person.username === user);
     if (duplicate) return res.sendStatus(409);
@@ -16,7 +16,8 @@ const handleNewUser = async (req, res) => {
         //encrypt the password
         const hashedPwd = await bcrypt.hash(pwd, 10);
         //store the new user
-        const newUser = {"username": user, "password": hashedPwd};
+        const rl = role?role:{"user":2001}
+        const newUser = {"username": user, "password": hashedPwd, "role": rl };
         UsersDB.setUsers([...UsersDB.users , newUser]);
         await fsPromises.writeFile(
             path.join(__dirname, '..', 'models', 'users.json'),
